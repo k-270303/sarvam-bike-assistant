@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: sarvam-bike-assistant-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: SARVAM_API_KEY
+        sync: false
+      - key: SARVAM_CHAT_MODEL
+        value: sarvam-105b
+      - key: SARVAM_CHAT_BASE_URL
+        value: https://api.sarvam.ai/v1/chat/completions
+      - key: SARVAM_STT_MODEL
+        value: saaras:v3
+      - key: VISION_API_KEY
+        sync: false
+      - key: VISION_API_BASE_URL
+        value: https://api.fireworks.ai/inference/v1/chat/completions
+      - key: VISION_MODEL
+        value: accounts/fireworks/models/kimi-k2p5
+      - key: EMBEDDING_BACKEND
+        value: hashing
+      - key: SESSION_TTL_MINUTES
+        value: "120"
+      - key: CORS_ALLOWED_ORIGINS
+        value: "*"

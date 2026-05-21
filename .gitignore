@@ -1,0 +1,22 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.py[cod]
+*.log
+.DS_Store
+output/
+tmp/
+
+
+# Next.js frontend
+web/node_modules/
+web/.next/
+web/out/
+web/.env*.local
+web/tsconfig.tsbuildinfo
+
+# Large local manual corpus (users upload manuals at runtime)
+data/user manual/*.pdf

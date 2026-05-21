@@ -1,0 +1,937 @@
+{
+  "manuals": [
+    "Classic 350.pdf",
+    "Dominar.pdf",
+    "Glamour.pdf",
+    "HF deluxe.pdf",
+    "Himalyan 450.pdf",
+    "Pulsar N160_Single Seat.pdf",
+    "Pulsar NS160.pdf",
+    "TVS Apache RR 310.pdf",
+    "TVS sport.pdf",
+    "splendor.pdf"
+  ],
+  "pages": 1011,
+  "chunks": 1396,
+  "benchmark_summary": {
+    "case_count": 37,
+    "expected_status_counts": {
+      "clarification_needed": 7,
+      "low_confidence": 4,
+      "success": 26
+    },
+    "category_counts": {
+      "ambiguous": 4,
+      "safety": 3,
+      "supported_exact": 16,
+      "supported_paraphrase": 10,
+      "unsupported": 4
+    }
+  },
+  "extraction_quality": [
+    {
+      "document_name": "Classic 350.pdf",
+      "pages": 110,
+      "non_empty_pages": 109,
+      "text_extraction_quality": 1.0,
+      "characters": 92295
+    },
+    {
+      "document_name": "Dominar.pdf",
+      "pages": 64,
+      "non_empty_pages": 64,
+      "text_extraction_quality": 1.0,
+      "characters": 63133
+    },
+    {
+      "document_name": "Glamour.pdf",
+      "pages": 84,
+      "non_empty_pages": 84,
+      "text_extraction_quality": 1.0,
+      "characters": 118214
+    },
+    {
+      "document_name": "HF deluxe.pdf",
+      "pages": 76,
+      "non_empty_pages": 74,
+      "text_extraction_quality": 1.0,
+      "characters": 106424
+    },
+    {
+      "document_name": "Himalyan 450.pdf",
+      "pages": 149,
+      "non_empty_pages": 149,
+      "text_extraction_quality": 1.0,
+      "characters": 142199
+    },
+    {
+      "document_name": "Pulsar N160_Single Seat.pdf",
+      "pages": 60,
+      "non_empty_pages": 60,
+      "text_extraction_quality": 1.0,
+      "characters": 59894
+    },
+    {
+      "document_name": "Pulsar NS160.pdf",
+      "pages": 64,
+      "non_empty_pages": 63,
+      "text_extraction_quality": 1.0,
+      "characters": 53577
+    },
+    {
+      "document_name": "TVS Apache RR 310.pdf",
+      "pages": 256,
+      "non_empty_pages": 255,
+      "text_extraction_quality": 1.0,
+      "characters": 243957
+    },
+    {
+      "document_name": "TVS sport.pdf",
+      "pages": 78,
+      "non_empty_pages": 76,
+      "text_extraction_quality": 1.0,
+      "characters": 80620
+    },
+    {
+      "document_name": "splendor.pdf",
+      "pages": 70,
+      "non_empty_pages": 70,
+      "text_extraction_quality": 1.0,
+      "characters": 102848
+    }
+  ],
+  "metrics": {
+    "retrieval_accuracy_at_1": 0.7308,
+    "retrieval_accuracy_at_3": 0.9231,
+    "retrieval_accuracy_at_5": 1.0,
+    "retrieval_mrr_at_5": 0.8378,
+    "document_accuracy_at_1": 1.0,
+    "document_accuracy_at_5": 1.0,
+    "supported_case_count": 26.0
+  },
+  "case_results": [
+    {
+      "id": "pulsar_n160_spark_plug_gap",
+      "category": "supported_exact",
+      "pass_at_1": false,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 2,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Pulsar N160_Single Seat.pdf",
+        "Pulsar N160_Single Seat.pdf",
+        "Pulsar N160_Single Seat.pdf",
+        "Pulsar N160_Single Seat.pdf",
+        "Pulsar N160_Single Seat.pdf"
+      ],
+      "top_1_section": "BATTERY / FITMENT OF SEAT",
+      "top_1_score": 0.8841
+    },
+    {
+      "id": "pulsar_n160_low_oil_indicator",
+      "category": "supported_exact",
+      "pass_at_1": false,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 2,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Pulsar N160_Single Seat.pdf",
+        "Pulsar N160_Single Seat.pdf",
+        "Pulsar NS160.pdf",
+        "Pulsar N160_Single Seat.pdf",
+        "Dominar.pdf"
+      ],
+      "top_1_section": "INSTRUMENT CLUSTER DETAILS",
+      "top_1_score": 0.8895
+    },
+    {
+      "id": "tvs_sport_side_stand_exact",
+      "category": "supported_exact",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "TVS sport.pdf",
+        "TVS sport.pdf",
+        "TVS sport.pdf",
+        "TVS sport.pdf",
+        "TVS sport.pdf"
+      ],
+      "top_1_section": "20 seconds.",
+      "top_1_score": 0.9073
+    },
+    {
+      "id": "splendor_poor_pickup_exact",
+      "category": "supported_exact",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "splendor.pdf",
+        "HF deluxe.pdf",
+        "Glamour.pdf",
+        "splendor.pdf",
+        "splendor.pdf"
+      ],
+      "top_1_section": "BASIC TROUBLESHOOTING",
+      "top_1_score": 0.9275
+    },
+    {
+      "id": "glamour_engine_stalls_exact",
+      "category": "supported_exact",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Glamour.pdf",
+        "Glamour.pdf",
+        "Glamour.pdf",
+        "Glamour.pdf",
+        "splendor.pdf"
+      ],
+      "top_1_section": "BASIC TROUBLESHOOTING",
+      "top_1_score": 0.9346
+    },
+    {
+      "id": "classic_350_spark_plug_gap",
+      "category": "supported_exact",
+      "pass_at_1": false,
+      "pass_at_3": false,
+      "pass_at_5": true,
+      "first_matching_rank": 4,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Classic 350.pdf",
+        "Classic 350.pdf",
+        "Classic 350.pdf",
+        "Classic 350.pdf",
+        "Classic 350.pdf"
+      ],
+      "top_1_section": "MINOR MAINTENANCE TIPS",
+      "top_1_score": 0.9717
+    },
+    {
+      "id": "classic_350_brake_fluid_grade",
+      "category": "supported_exact",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Classic 350.pdf",
+        "Classic 350.pdf",
+        "Classic 350.pdf",
+        "Classic 350.pdf",
+        "Classic 350.pdf"
+      ],
+      "top_1_section": "RECOMMENDED LUBRICANTS",
+      "top_1_score": 0.9444
+    },
+    {
+      "id": "dominar_spark_plug_gap",
+      "category": "supported_exact",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Dominar.pdf",
+        "Dominar.pdf",
+        "Dominar.pdf",
+        "Dominar.pdf",
+        "Dominar.pdf"
+      ],
+      "top_1_section": "TECHNICAL SPECIFICATIONS",
+      "top_1_score": 0.9154
+    },
+    {
+      "id": "dominar_low_oil_indicator",
+      "category": "supported_exact",
+      "pass_at_1": false,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 3,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Dominar.pdf",
+        "Dominar.pdf",
+        "Dominar.pdf",
+        "Dominar.pdf",
+        "Pulsar NS160.pdf"
+      ],
+      "top_1_section": "INSTRUMENT CLUSTER DETAILS",
+      "top_1_score": 0.8602
+    },
+    {
+      "id": "apache_rr310_engine_oil_level",
+      "category": "supported_exact",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "TVS Apache RR 310.pdf",
+        "TVS Apache RR 310.pdf",
+        "TVS Apache RR 310.pdf",
+        "TVS Apache RR 310.pdf",
+        "TVS Apache RR 310.pdf"
+      ],
+      "top_1_section": "MAINTENANCE",
+      "top_1_score": 0.9073
+    },
+    {
+      "id": "hf_deluxe_engine_stalls",
+      "category": "supported_exact",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "HF deluxe.pdf",
+        "HF deluxe.pdf",
+        "Glamour.pdf",
+        "HF deluxe.pdf",
+        "HF deluxe.pdf"
+      ],
+      "top_1_section": "BASIC TROUBLESHOOTING",
+      "top_1_score": 0.9003
+    },
+    {
+      "id": "hf_deluxe_poor_pickup",
+      "category": "supported_exact",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "HF deluxe.pdf",
+        "HF deluxe.pdf",
+        "HF deluxe.pdf",
+        "HF deluxe.pdf",
+        "HF deluxe.pdf"
+      ],
+      "top_1_section": "BASIC TROUBLESHOOTING",
+      "top_1_score": 0.9175
+    },
+    {
+      "id": "himalayan_450_poor_pickup",
+      "category": "supported_exact",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Himalyan 450.pdf",
+        "HF deluxe.pdf",
+        "Himalyan 450.pdf",
+        "Himalyan 450.pdf",
+        "Himalyan 450.pdf"
+      ],
+      "top_1_section": "TROUBLESHOOTING",
+      "top_1_score": 0.7745
+    },
+    {
+      "id": "himalayan_450_spark_plug_gap",
+      "category": "supported_exact",
+      "pass_at_1": false,
+      "pass_at_3": false,
+      "pass_at_5": true,
+      "first_matching_rank": 5,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Himalyan 450.pdf",
+        "Himalyan 450.pdf",
+        "Himalyan 450.pdf",
+        "Himalyan 450.pdf",
+        "Himalyan 450.pdf"
+      ],
+      "top_1_section": "NOTES",
+      "top_1_score": 0.903
+    },
+    {
+      "id": "pulsar_ns160_tyre_pressure",
+      "category": "supported_exact",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf"
+      ],
+      "top_1_section": "USE ONLY BAJAJ GENUINE PARTS",
+      "top_1_score": 0.9733
+    },
+    {
+      "id": "pulsar_ns160_spark_plug_gap",
+      "category": "supported_exact",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf"
+      ],
+      "top_1_section": "USE ONLY BAJAJ GENUINE PARTS",
+      "top_1_score": 0.9279
+    },
+    {
+      "id": "tvs_sport_side_stand_paraphrase",
+      "category": "supported_paraphrase",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "TVS sport.pdf",
+        "TVS sport.pdf",
+        "TVS sport.pdf",
+        "TVS sport.pdf",
+        "Himalyan 450.pdf"
+      ],
+      "top_1_section": "20 seconds.",
+      "top_1_score": 0.8886
+    },
+    {
+      "id": "splendor_weak_acceleration_paraphrase",
+      "category": "supported_paraphrase",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "splendor.pdf",
+        "HF deluxe.pdf",
+        "splendor.pdf",
+        "Glamour.pdf",
+        "splendor.pdf"
+      ],
+      "top_1_section": "BASIC TROUBLESHOOTING",
+      "top_1_score": 0.9379
+    },
+    {
+      "id": "glamour_stalls_after_start_paraphrase",
+      "category": "supported_paraphrase",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Glamour.pdf",
+        "Glamour.pdf",
+        "Glamour.pdf",
+        "Glamour.pdf",
+        "Glamour.pdf"
+      ],
+      "top_1_section": "BASIC TROUBLESHOOTING",
+      "top_1_score": 0.9108
+    },
+    {
+      "id": "pulsar_n160_oil_warning_paraphrase",
+      "category": "supported_paraphrase",
+      "pass_at_1": false,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 2,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Pulsar N160_Single Seat.pdf",
+        "Pulsar N160_Single Seat.pdf",
+        "Pulsar N160_Single Seat.pdf",
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf"
+      ],
+      "top_1_section": "INSTRUMENT CLUSTER DETAILS",
+      "top_1_score": 0.8468
+    },
+    {
+      "id": "classic_350_brake_fluid_paraphrase",
+      "category": "supported_paraphrase",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Classic 350.pdf",
+        "Classic 350.pdf",
+        "Classic 350.pdf",
+        "Classic 350.pdf",
+        "Classic 350.pdf"
+      ],
+      "top_1_section": "RECOMMENDED LUBRICANTS",
+      "top_1_score": 0.9637
+    },
+    {
+      "id": "dominar_oil_light_paraphrase",
+      "category": "supported_paraphrase",
+      "pass_at_1": false,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 2,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Dominar.pdf",
+        "Dominar.pdf",
+        "Dominar.pdf",
+        "Dominar.pdf",
+        "Dominar.pdf"
+      ],
+      "top_1_section": "INSTRUMENT CLUSTER DETAILS",
+      "top_1_score": 0.8884
+    },
+    {
+      "id": "hf_deluxe_weak_pickup_paraphrase",
+      "category": "supported_paraphrase",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "HF deluxe.pdf",
+        "HF deluxe.pdf",
+        "HF deluxe.pdf",
+        "HF deluxe.pdf",
+        "HF deluxe.pdf"
+      ],
+      "top_1_section": "BASIC TROUBLESHOOTING",
+      "top_1_score": 0.9197
+    },
+    {
+      "id": "himalayan_clutch_slip_paraphrase",
+      "category": "supported_paraphrase",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Himalyan 450.pdf",
+        "Himalyan 450.pdf",
+        "Himalyan 450.pdf",
+        "Himalyan 450.pdf",
+        "Himalyan 450.pdf"
+      ],
+      "top_1_section": "TROUBLESHOOTING",
+      "top_1_score": 0.9527
+    },
+    {
+      "id": "ns160_front_tyre_pressure_paraphrase",
+      "category": "supported_paraphrase",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf",
+        "Pulsar NS160.pdf"
+      ],
+      "top_1_section": "USE ONLY BAJAJ GENUINE PARTS",
+      "top_1_score": 0.9362
+    },
+    {
+      "id": "image_low_oil_enriched_query",
+      "category": "supported_paraphrase",
+      "pass_at_1": true,
+      "pass_at_3": true,
+      "pass_at_5": true,
+      "first_matching_rank": 1,
+      "document_hit_at_1": true,
+      "document_hit_at_5": true,
+      "top_5_documents": [
+        "Pulsar NS160.pdf",
+        "Dominar.pdf",
+        "Pulsar N160_Single Seat.pdf",
+        "Dominar.pdf",
+        "Pulsar N160_Single Seat.pdf"
+      ],
+      "top_1_section": "USE ONLY BAJAJ GENUINE PARTS",
+      "top_1_score": 0.7299
+    }
+  ],
+  "workflow": {
+    "workflow_status_accuracy": 1.0,
+    "case_count": 37,
+    "status_accuracy_by_category": {
+      "ambiguous": {
+        "accuracy": 1.0,
+        "passed": 4,
+        "total": 4
+      },
+      "safety": {
+        "accuracy": 1.0,
+        "passed": 3,
+        "total": 3
+      },
+      "supported_exact": {
+        "accuracy": 1.0,
+        "passed": 16,
+        "total": 16
+      },
+      "supported_paraphrase": {
+        "accuracy": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      "unsupported": {
+        "accuracy": 1.0,
+        "passed": 4,
+        "total": 4
+      }
+    },
+    "case_results": [
+      {
+        "id": "pulsar_n160_spark_plug_gap",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9178,
+        "passed": true
+      },
+      {
+        "id": "pulsar_n160_low_oil_indicator",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9203,
+        "passed": true
+      },
+      {
+        "id": "tvs_sport_side_stand_exact",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9283,
+        "passed": true
+      },
+      {
+        "id": "splendor_poor_pickup_exact",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9374,
+        "passed": true
+      },
+      {
+        "id": "glamour_engine_stalls_exact",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9405,
+        "passed": true
+      },
+      {
+        "id": "classic_350_spark_plug_gap",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9573,
+        "passed": true
+      },
+      {
+        "id": "classic_350_brake_fluid_grade",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.945,
+        "passed": true
+      },
+      {
+        "id": "dominar_spark_plug_gap",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9319,
+        "passed": true
+      },
+      {
+        "id": "dominar_low_oil_indicator",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9071,
+        "passed": true
+      },
+      {
+        "id": "apache_rr310_engine_oil_level",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9283,
+        "passed": true
+      },
+      {
+        "id": "hf_deluxe_engine_stalls",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9251,
+        "passed": true
+      },
+      {
+        "id": "hf_deluxe_poor_pickup",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9329,
+        "passed": true
+      },
+      {
+        "id": "himalayan_450_poor_pickup",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.8685,
+        "passed": true
+      },
+      {
+        "id": "himalayan_450_spark_plug_gap",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9264,
+        "passed": true
+      },
+      {
+        "id": "pulsar_ns160_tyre_pressure",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.958,
+        "passed": true
+      },
+      {
+        "id": "pulsar_ns160_spark_plug_gap",
+        "category": "supported_exact",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9376,
+        "passed": true
+      },
+      {
+        "id": "tvs_sport_side_stand_paraphrase",
+        "category": "supported_paraphrase",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9199,
+        "passed": true
+      },
+      {
+        "id": "splendor_weak_acceleration_paraphrase",
+        "category": "supported_paraphrase",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.942,
+        "passed": true
+      },
+      {
+        "id": "glamour_stalls_after_start_paraphrase",
+        "category": "supported_paraphrase",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9299,
+        "passed": true
+      },
+      {
+        "id": "pulsar_n160_oil_warning_paraphrase",
+        "category": "supported_paraphrase",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.901,
+        "passed": true
+      },
+      {
+        "id": "classic_350_brake_fluid_paraphrase",
+        "category": "supported_paraphrase",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9536,
+        "passed": true
+      },
+      {
+        "id": "dominar_oil_light_paraphrase",
+        "category": "supported_paraphrase",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9198,
+        "passed": true
+      },
+      {
+        "id": "hf_deluxe_weak_pickup_paraphrase",
+        "category": "supported_paraphrase",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9339,
+        "passed": true
+      },
+      {
+        "id": "himalayan_clutch_slip_paraphrase",
+        "category": "supported_paraphrase",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9487,
+        "passed": true
+      },
+      {
+        "id": "ns160_front_tyre_pressure_paraphrase",
+        "category": "supported_paraphrase",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.9413,
+        "passed": true
+      },
+      {
+        "id": "image_low_oil_enriched_query",
+        "category": "supported_paraphrase",
+        "expected_status": "success",
+        "predicted_status": "success",
+        "confidence": 0.8484,
+        "passed": true
+      },
+      {
+        "id": "generic_noise_ambiguous",
+        "category": "ambiguous",
+        "expected_status": "clarification_needed",
+        "predicted_status": "clarification_needed",
+        "confidence": 0.0,
+        "passed": true
+      },
+      {
+        "id": "generic_starting_ambiguous",
+        "category": "ambiguous",
+        "expected_status": "clarification_needed",
+        "predicted_status": "clarification_needed",
+        "confidence": 0.0,
+        "passed": true
+      },
+      {
+        "id": "generic_light_ambiguous",
+        "category": "ambiguous",
+        "expected_status": "clarification_needed",
+        "predicted_status": "clarification_needed",
+        "confidence": 0.0,
+        "passed": true
+      },
+      {
+        "id": "too_short_ambiguous",
+        "category": "ambiguous",
+        "expected_status": "clarification_needed",
+        "predicted_status": "clarification_needed",
+        "confidence": 0.0,
+        "passed": true
+      },
+      {
+        "id": "unsupported_modification",
+        "category": "unsupported",
+        "expected_status": "low_confidence",
+        "predicted_status": "low_confidence",
+        "confidence": 0.0,
+        "passed": true
+      },
+      {
+        "id": "unsupported_price",
+        "category": "unsupported",
+        "expected_status": "low_confidence",
+        "predicted_status": "low_confidence",
+        "confidence": 0.0,
+        "passed": true
+      },
+      {
+        "id": "unsupported_comparison",
+        "category": "unsupported",
+        "expected_status": "low_confidence",
+        "predicted_status": "low_confidence",
+        "confidence": 0.0,
+        "passed": true
+      },
+      {
+        "id": "unsupported_aftermarket_exhaust",
+        "category": "unsupported",
+        "expected_status": "low_confidence",
+        "predicted_status": "low_confidence",
+        "confidence": 0.0,
+        "passed": true
+      },
+      {
+        "id": "safety_brake",
+        "category": "safety",
+        "expected_status": "clarification_needed",
+        "predicted_status": "clarification_needed",
+        "confidence": 0.0,
+        "passed": true
+      },
+      {
+        "id": "safety_fuel_leak",
+        "category": "safety",
+        "expected_status": "clarification_needed",
+        "predicted_status": "clarification_needed",
+        "confidence": 0.0,
+        "passed": true
+      },
+      {
+        "id": "safety_smoke",
+        "category": "safety",
+        "expected_status": "clarification_needed",
+        "predicted_status": "clarification_needed",
+        "confidence": 0.0,
+        "passed": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,296 @@
+[
+  {
+    "id": "pulsar_n160_spark_plug_gap",
+    "query": "For the Pulsar N160, what is the spark plug gap?",
+    "expected_terms": ["spark plug gap", "0.8 ~ 0.9 mm"],
+    "expected_document_names": ["Pulsar N160_Single Seat.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "pulsar_n160_low_oil_indicator",
+    "query": "For Pulsar N160, what does the low oil pressure indicator mean?",
+    "expected_terms": ["low oil pressure indicator"],
+    "expected_any_terms": ["oil pressure is low", "glows when engine oil"],
+    "expected_document_names": ["Pulsar N160_Single Seat.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "tvs_sport_side_stand_exact",
+    "query": "For TVS Sport, what happens if the side stand is deployed?",
+    "expected_terms": ["side stand"],
+    "expected_any_terms": ["vehicle will not start", "retract the side stand"],
+    "expected_document_names": ["TVS sport.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "splendor_poor_pickup_exact",
+    "query": "For Splendor, what should I check for poor pick up?",
+    "expected_terms": ["poor pick up"],
+    "expected_any_terms": ["under inflated", "correct tyre pressure"],
+    "expected_document_names": ["splendor.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "glamour_engine_stalls_exact",
+    "query": "For Glamour, what does the manual say about engine starts but stalls?",
+    "expected_terms": ["engine starts but stalls"],
+    "expected_any_terms": ["check fuel lines", "air cleaner element"],
+    "expected_document_names": ["Glamour.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "classic_350_spark_plug_gap",
+    "query": "For Classic 350, what spark plug gap does the manual specify?",
+    "expected_terms": ["spark plug gap", "0.7 to 0.8 mm"],
+    "expected_document_names": ["Classic 350.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "classic_350_brake_fluid_grade",
+    "query": "For Classic 350, what brake fluid grade should be used?",
+    "expected_terms": ["brake fluid grade"],
+    "expected_any_terms": ["dot 4", "do not mix dot 4"],
+    "expected_document_names": ["Classic 350.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "dominar_spark_plug_gap",
+    "query": "For Dominar 250, what is the spark plug gap?",
+    "expected_terms": ["spark plug gap", "0.8 ~ 0.9 mm"],
+    "expected_document_names": ["Dominar.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "dominar_low_oil_indicator",
+    "query": "On Dominar 250, what dashboard indicator is used for low oil pressure?",
+    "expected_terms": ["low oil pr. indicator"],
+    "expected_any_terms": ["led-red", "low oil"],
+    "expected_document_names": ["Dominar.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "apache_rr310_engine_oil_level",
+    "query": "For Apache RR 310, where does the manual discuss checking engine oil level?",
+    "expected_terms": ["engine oil level"],
+    "expected_any_terms": ["gauge oil level", "dipstick"],
+    "expected_document_names": ["TVS Apache RR 310.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "hf_deluxe_engine_stalls",
+    "query": "For HF Deluxe, what does the troubleshooting section say when the engine starts but stalls?",
+    "expected_terms": ["engine starts but stalls"],
+    "expected_any_terms": ["check fuel lines", "consult authorised hero motocorp workshop"],
+    "expected_document_names": ["HF deluxe.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "hf_deluxe_poor_pickup",
+    "query": "For HF Deluxe, what should I check for poor pickup?",
+    "expected_terms": ["poor pick up"],
+    "expected_any_terms": ["tyre inflation pressure", "correct tyre pressure"],
+    "expected_document_names": ["HF deluxe.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "himalayan_450_poor_pickup",
+    "query": "For Himalayan 450, what does the manual say about poor pickup?",
+    "expected_terms": ["poor pickup"],
+    "expected_any_terms": ["adjust the clutch free play", "contact authorised service center"],
+    "expected_document_names": ["Himalyan 450.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "himalayan_450_spark_plug_gap",
+    "query": "For Himalayan 450, what is the spark plug gap?",
+    "expected_terms": ["spark plug gap", "0.8 mm to 0.9 mm"],
+    "expected_document_names": ["Himalyan 450.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "pulsar_ns160_tyre_pressure",
+    "query": "For Pulsar NS160, what is the front tyre pressure?",
+    "expected_terms": ["tyre pressure", "25 psi"],
+    "expected_document_names": ["Pulsar NS160.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "pulsar_ns160_spark_plug_gap",
+    "query": "For Pulsar NS160, what is the spark plug gap?",
+    "expected_terms": ["spark plug gap", "0.7 ~ 0.8 mm"],
+    "expected_document_names": ["Pulsar NS160.pdf"],
+    "expected_status": "success",
+    "category": "supported_exact"
+  },
+  {
+    "id": "tvs_sport_side_stand_paraphrase",
+    "query": "My TVS Sport will not start because I left the stand down. What should I do?",
+    "expected_terms": ["side stand"],
+    "expected_any_terms": ["retract the side stand", "vehicle will not start"],
+    "expected_document_names": ["TVS sport.pdf"],
+    "expected_status": "success",
+    "category": "supported_paraphrase"
+  },
+  {
+    "id": "splendor_weak_acceleration_paraphrase",
+    "query": "My Splendor feels weak and is not picking up speed properly.",
+    "expected_terms": ["poor pick up"],
+    "expected_any_terms": ["under inflated", "correct tyre pressure"],
+    "expected_document_names": ["splendor.pdf"],
+    "expected_status": "success",
+    "category": "supported_paraphrase"
+  },
+  {
+    "id": "glamour_stalls_after_start_paraphrase",
+    "query": "My Glamour starts, then immediately dies. What does the manual suggest checking?",
+    "expected_terms": ["engine starts but stalls"],
+    "expected_any_terms": ["check fuel lines", "air cleaner element"],
+    "expected_document_names": ["Glamour.pdf"],
+    "expected_status": "success",
+    "category": "supported_paraphrase"
+  },
+  {
+    "id": "pulsar_n160_oil_warning_paraphrase",
+    "query": "On my Pulsar N160, a red oil warning came on. What does that mean?",
+    "expected_terms": ["low oil pressure indicator"],
+    "expected_any_terms": ["oil pressure is low", "glows when engine oil"],
+    "expected_document_names": ["Pulsar N160_Single Seat.pdf"],
+    "expected_status": "success",
+    "category": "supported_paraphrase"
+  },
+  {
+    "id": "classic_350_brake_fluid_paraphrase",
+    "query": "Which brake oil should I use in my Classic 350?",
+    "expected_terms": ["brake fluid"],
+    "expected_any_terms": ["dot 4", "brake fluid grade"],
+    "expected_document_names": ["Classic 350.pdf"],
+    "expected_status": "success",
+    "category": "supported_paraphrase"
+  },
+  {
+    "id": "dominar_oil_light_paraphrase",
+    "query": "My Dominar shows a red oil light on the console. Which indicator is that?",
+    "expected_terms": ["low oil pr. indicator"],
+    "expected_any_terms": ["led-red", "low oil"],
+    "expected_document_names": ["Dominar.pdf"],
+    "expected_status": "success",
+    "category": "supported_paraphrase"
+  },
+  {
+    "id": "hf_deluxe_weak_pickup_paraphrase",
+    "query": "My HF Deluxe feels slow and is not accelerating properly.",
+    "expected_terms": ["poor pick up"],
+    "expected_any_terms": ["tyre inflation pressure", "correct tyre pressure"],
+    "expected_document_names": ["HF deluxe.pdf"],
+    "expected_status": "success",
+    "category": "supported_paraphrase"
+  },
+  {
+    "id": "himalayan_clutch_slip_paraphrase",
+    "query": "On my Himalayan 450 the RPM rises but speed does not increase much. What should I check?",
+    "expected_terms": ["poor pickup"],
+    "expected_any_terms": ["engine rpm raises disproportionately", "adjust the clutch free play"],
+    "expected_document_names": ["Himalyan 450.pdf"],
+    "expected_status": "success",
+    "category": "supported_paraphrase"
+  },
+  {
+    "id": "ns160_front_tyre_pressure_paraphrase",
+    "query": "How much air should the front tyre have on a Pulsar NS160?",
+    "expected_terms": ["tyre pressure"],
+    "expected_any_terms": ["25 psi", "1.75 kgf/cm"],
+    "expected_document_names": ["Pulsar NS160.pdf"],
+    "expected_status": "success",
+    "category": "supported_paraphrase"
+  },
+  {
+    "id": "image_low_oil_enriched_query",
+    "query": "User question:\nWhy is this happening?\n\nImage observation:\nVisible observations: A dashboard warning related to oil is visible.\nVisible text: LOW OIL.\nVisible components: instrument cluster.",
+    "expected_terms": ["low oil pressure indicator"],
+    "expected_any_terms": ["oil pressure is low", "low oil"],
+    "expected_document_names": ["Pulsar N160_Single Seat.pdf", "Dominar.pdf", "Pulsar NS160.pdf"],
+    "expected_status": "success",
+    "category": "supported_paraphrase"
+  },
+  {
+    "id": "generic_noise_ambiguous",
+    "query": "My bike is making noise.",
+    "expected_status": "clarification_needed",
+    "category": "ambiguous"
+  },
+  {
+    "id": "generic_starting_ambiguous",
+    "query": "Bike is not starting.",
+    "expected_status": "clarification_needed",
+    "category": "ambiguous"
+  },
+  {
+    "id": "generic_light_ambiguous",
+    "query": "A warning light is on.",
+    "expected_status": "clarification_needed",
+    "category": "ambiguous"
+  },
+  {
+    "id": "too_short_ambiguous",
+    "query": "It jerks.",
+    "expected_status": "clarification_needed",
+    "category": "ambiguous"
+  },
+  {
+    "id": "unsupported_modification",
+    "query": "How can I modify my bike to make it faster?",
+    "expected_status": "low_confidence",
+    "category": "unsupported"
+  },
+  {
+    "id": "unsupported_price",
+    "query": "What is the resale value of this bike?",
+    "expected_status": "low_confidence",
+    "category": "unsupported"
+  },
+  {
+    "id": "unsupported_comparison",
+    "query": "Which bike brand is best for mileage?",
+    "expected_status": "low_confidence",
+    "category": "unsupported"
+  },
+  {
+    "id": "unsupported_aftermarket_exhaust",
+    "query": "Can I install an aftermarket exhaust and tune the bike for more power?",
+    "expected_status": "low_confidence",
+    "category": "unsupported"
+  },
+  {
+    "id": "safety_brake",
+    "query": "My brake lever feels weak and the bike is not stopping properly.",
+    "expected_status": "clarification_needed",
+    "category": "safety"
+  },
+  {
+    "id": "safety_fuel_leak",
+    "query": "There is a fuel leak and I smell petrol near the bike.",
+    "expected_status": "clarification_needed",
+    "category": "safety"
+  },
+  {
+    "id": "safety_smoke",
+    "query": "There is smoke coming from my bike.",
+    "expected_status": "clarification_needed",
+    "category": "safety"
+  }
+]
