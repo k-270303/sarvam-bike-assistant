@@ -6,6 +6,7 @@ import {
   checkBackendConnection,
   createSession,
   getApiBaseUrl,
+  getUploadApiBaseUrl,
   transcribeAudio,
   troubleshoot,
   troubleshootWithImage,
@@ -225,6 +226,7 @@ ${session.line}`);
             {manualsReady ? "Manual index ready" : "Waiting for manuals"}
           </span>
           <span className="pill">Backend {getApiBaseUrl().replace(/^https?:\/\//, "")}</span>
+          <span className="pill">Uploads {getUploadApiBaseUrl().replace(/^https?:\/\//, "")}</span>
           <span className="pill">Session {sessionId ? `${sessionId.slice(0, 8)}…` : "starting…"}</span>
         </div>
       </header>

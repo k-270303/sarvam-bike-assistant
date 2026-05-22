@@ -7,13 +7,20 @@ import type {
 
 const CONFIGURED_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE_URL = CONFIGURED_API_BASE_URL ?? (process.env.NODE_ENV === "development" ? "http://localhost:8000" : "/backend");
+const UPLOAD_API_BASE_URL = process.env.NEXT_PUBLIC_UPLOAD_API_BASE_URL
+  ?? (process.env.NODE_ENV === "development" ? API_BASE_URL : "https://sarvam-bike-assistant-api.onrender.com");
 
 export function getApiBaseUrl(): string {
   return API_BASE_URL || "Missing NEXT_PUBLIC_API_BASE_URL";
 }
 
+export function getUploadApiBaseUrl(): string {
+  return UPLOAD_API_BASE_URL;
+}
+
 type RequestOptions = RequestInit & {
   timeoutMs?: number;
+  baseUrl?: string;
 };
 
 export class ApiClientError extends Error {
@@ -31,10 +38,11 @@ export class ApiClientError extends Error {
 async function requestJson<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), options.timeoutMs ?? 120_000);
+  const { baseUrl = API_BASE_URL, timeoutMs: _timeoutMs, ...fetchOptions } = options;
 
   try {
-    const response = await fetch(`${API_BASE_URL}${path}`, {
-      ...options,
+    const response = await fetch(`${baseUrl}${path}`, {
+      ...fetchOptions,
       signal: controller.signal,
     });
 
@@ -58,7 +66,11 @@ async function requestJson<T>(path: string, options: RequestOptions = {}): Promi
       if (typeof detail === "string") {
         throw new ApiClientError(detail, { status: response.status });
       }
-      throw new ApiClientError("Request failed. Please try again.", { status: response.status });
+      const fallbackBody = typeof payload === "string" ? payload.slice(0, 300) : "";
+      throw new ApiClientError(
+        `Request failed (${response.status} ${response.statusText}) at ${baseUrl}${path}.${fallbackBody ? ` Response: ${fallbackBody}` : ""}`,
+        { status: response.status },
+      );
     }
 
     return payload as T;
@@ -71,7 +83,7 @@ async function requestJson<T>(path: string, options: RequestOptions = {}): Promi
     }
     const reason = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
     throw new ApiClientError(
-      `Could not reach the backend at ${API_BASE_URL}${path}. Browser error: ${reason}`,
+      `Could not reach the backend at ${baseUrl}${path}. Browser error: ${reason}`,
       { code: "connection_error" },
     );
   } finally {
@@ -93,6 +105,7 @@ export function uploadManuals(sessionId: string, files: File[]): Promise<IngestR
     method: "POST",
     body: formData,
     timeoutMs: 240_000,
+    baseUrl: UPLOAD_API_BASE_URL,
   });
 }
 
@@ -103,6 +116,7 @@ export function transcribeAudio(file: File): Promise<TranscribeResponse> {
     method: "POST",
     body: formData,
     timeoutMs: 150_000,
+    baseUrl: UPLOAD_API_BASE_URL,
   });
 }
 
@@ -128,6 +142,7 @@ export function troubleshootWithImage(
     method: "POST",
     body: formData,
     timeoutMs: 210_000,
+    baseUrl: UPLOAD_API_BASE_URL,
   });
 }
 
