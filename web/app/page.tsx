@@ -4,6 +4,7 @@ import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import {
   ApiClientError,
   createSession,
+  getApiBaseUrl,
   transcribeAudio,
   troubleshoot,
   troubleshootWithImage,
@@ -176,6 +177,7 @@ export default function Home() {
           <span className={manualsReady ? "pill pillReady" : "pill"}>
             {manualsReady ? "Manual index ready" : "Waiting for manuals"}
           </span>
+          <span className="pill">Backend {getApiBaseUrl().replace(/^https?:\/\//, "")}</span>
           <span className="pill">Session {sessionId ? `${sessionId.slice(0, 8)}…` : "starting…"}</span>
         </div>
       </header>
