@@ -69,9 +69,11 @@ async function requestJson<T>(path: string, options: RequestOptions = {}): Promi
     if (error instanceof DOMException && error.name === "AbortError") {
       throw new ApiClientError("The request took too long. Please try again.", { code: "timeout" });
     }
-    throw new ApiClientError("Could not reach the backend. Please check that it is running.", {
-      code: "connection_error",
-    });
+    const reason = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
+    throw new ApiClientError(
+      `Could not reach the backend at ${API_BASE_URL}${path}. Browser error: ${reason}`,
+      { code: "connection_error" },
+    );
   } finally {
     window.clearTimeout(timeout);
   }
@@ -126,5 +128,12 @@ export function troubleshootWithImage(
     method: "POST",
     body: formData,
     timeoutMs: 210_000,
+  });
+}
+
+export async function checkBackendConnection(): Promise<{ status: string }> {
+  return requestJson<{ status: string }>("/health", {
+    method: "GET",
+    timeoutMs: 30_000,
   });
 }

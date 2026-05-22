@@ -3,6 +3,7 @@
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import {
   ApiClientError,
+  checkBackendConnection,
   createSession,
   getApiBaseUrl,
   transcribeAudio,
@@ -42,6 +43,7 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [result, setResult] = useState<TroubleshootResponse | null>(null);
   const [error, setError] = useState<string>("");
+  const [backendCheck, setBackendCheck] = useState<string>("");
   const [isCreatingSession, setIsCreatingSession] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [isTranscribing, setIsTranscribing] = useState(false);
@@ -142,6 +144,17 @@ export default function Home() {
     }
   }
 
+  async function handleBackendCheck() {
+    setError("");
+    setBackendCheck("Checking backend…");
+    try {
+      const payload = await checkBackendConnection();
+      setBackendCheck(`Backend reachable: ${payload.status}`);
+    } catch (err) {
+      setBackendCheck(friendlyError(err));
+    }
+  }
+
   async function handleFreshSession() {
     setError("");
     setResult(null);
@@ -213,15 +226,21 @@ export default function Home() {
       </section>
 
       {error ? <div className="notice noticeError" style={{ marginBottom: 18 }}>{error}</div> : null}
+      {backendCheck ? <div className="notice noticeInfo" style={{ marginBottom: 18 }}>{backendCheck}</div> : null}
 
       <section className="grid">
         <aside>
           <div className="panel stack">
             <div className="row spaceBetween">
               <h2>1. Upload manuals</h2>
-              <button className="btn btnSecondary" onClick={handleFreshSession} disabled={isCreatingSession || isUploading}>
-                Fresh session
-              </button>
+              <div className="row" style={{ gap: 8 }}>
+                <button className="btn btnSecondary" onClick={handleBackendCheck} disabled={isCreatingSession || isUploading}>
+                  Check backend
+                </button>
+                <button className="btn btnSecondary" onClick={handleFreshSession} disabled={isCreatingSession || isUploading}>
+                  Fresh session
+                </button>
+              </div>
             </div>
             <p className="helper">
               PDFs are processed for this backend session only. They are not stored as durable app data.
