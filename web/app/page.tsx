@@ -146,10 +146,12 @@ export default function Home() {
 
   async function handleBackendCheck() {
     setError("");
-    setBackendCheck("Checking backend…");
+    setBackendCheck("Checking backend and session creation…");
     try {
-      const payload = await checkBackendConnection();
-      setBackendCheck(`Backend reachable: ${payload.status}`);
+      const health = await checkBackendConnection();
+      const session = await createSession();
+      setSessionId(session.session_id);
+      setBackendCheck(`Backend reachable: ${health.status}. Session ready: ${session.session_id.slice(0, 8)}…`);
     } catch (err) {
       setBackendCheck(friendlyError(err));
     }
