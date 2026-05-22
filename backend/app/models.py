@@ -33,6 +33,15 @@ class SearchHit:
 
 
 @dataclass
+class ManualUploadState:
+    upload_id: str
+    filename: str
+    total_chunks: int
+    total_size: int
+    chunks: dict[int, bytes] = field(default_factory=dict)
+
+
+@dataclass
 class SessionCorpus:
     session_id: str
     created_at: datetime
@@ -42,6 +51,7 @@ class SessionCorpus:
     chunks: list[Chunk] = field(default_factory=list)
     lexical_index: object | None = None
     embedding_index: object | None = None
+    pending_uploads: dict[str, ManualUploadState] = field(default_factory=dict)
 
 
 class Citation(BaseModel):
@@ -85,6 +95,17 @@ class TroubleshootResponse(BaseModel):
     escalation_recommendation: Optional[str] = None
     clarification_questions: list[str] = Field(default_factory=list)
     message: Optional[str] = None
+
+
+class ChunkedUploadStartRequest(BaseModel):
+    filename: str = Field(min_length=1)
+    total_chunks: int = Field(ge=1, le=300)
+    total_size: int = Field(gt=0)
+
+
+class ChunkedUploadStartResponse(BaseModel):
+    upload_id: str
+    chunk_size_hint: int
 
 
 class IngestResponse(BaseModel):

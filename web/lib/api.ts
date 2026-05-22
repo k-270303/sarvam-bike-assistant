@@ -1,4 +1,6 @@
 import type {
+  ChunkedUploadPartialResponse,
+  ChunkedUploadStartResponse,
   IngestResponse,
   SessionResponse,
   TranscribeResponse,
@@ -9,6 +11,8 @@ const CONFIGURED_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_BASE_URL = CONFIGURED_API_BASE_URL ?? (process.env.NODE_ENV === "development" ? "http://localhost:8000" : "/backend");
 const UPLOAD_API_BASE_URL = process.env.NEXT_PUBLIC_UPLOAD_API_BASE_URL
   ?? (process.env.NODE_ENV === "development" ? API_BASE_URL : "https://sarvam-bike-assistant-api.onrender.com");
+const CHUNKED_UPLOAD_THRESHOLD_BYTES = 6 * 1024 * 1024;
+const DEFAULT_UPLOAD_CHUNK_BYTES = 3 * 1024 * 1024;
 
 export function getApiBaseUrl(): string {
   return API_BASE_URL || "Missing NEXT_PUBLIC_API_BASE_URL";
@@ -99,6 +103,14 @@ export function createSession(): Promise<SessionResponse> {
 }
 
 export function uploadManuals(sessionId: string, files: File[]): Promise<IngestResponse> {
+  if (files.every((file) => file.size <= CHUNKED_UPLOAD_THRESHOLD_BYTES)) {
+    return uploadManualBatch(sessionId, files);
+  }
+
+  return uploadManualsSafely(sessionId, files);
+}
+
+function uploadManualBatch(sessionId: string, files: File[]): Promise<IngestResponse> {
   const formData = new FormData();
   files.forEach((file) => formData.append("files", file));
   return requestJson<IngestResponse>(`/sessions/${sessionId}/manuals`, {
@@ -106,6 +118,75 @@ export function uploadManuals(sessionId: string, files: File[]): Promise<IngestR
     body: formData,
     timeoutMs: 240_000,
     baseUrl: UPLOAD_API_BASE_URL,
+  });
+}
+
+async function uploadManualsSafely(sessionId: string, files: File[]): Promise<IngestResponse> {
+  let latestResponse: IngestResponse | null = null;
+
+  for (const file of files) {
+    if (file.size <= CHUNKED_UPLOAD_THRESHOLD_BYTES) {
+      latestResponse = await uploadManualBatch(sessionId, [file]);
+      continue;
+    }
+
+    latestResponse = await uploadLargeManualInChunks(sessionId, file);
+  }
+
+  if (!latestResponse) {
+    throw new ApiClientError("Please upload at least one PDF manual.", { code: "no_files" });
+  }
+  return latestResponse;
+}
+
+async function uploadLargeManualInChunks(sessionId: string, file: File): Promise<IngestResponse> {
+  const optimisticChunkSize = DEFAULT_UPLOAD_CHUNK_BYTES;
+  const start = await requestJson<ChunkedUploadStartResponse>(`/sessions/${sessionId}/manual-upload/start`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      filename: file.name,
+      total_chunks: Math.ceil(file.size / optimisticChunkSize),
+      total_size: file.size,
+    }),
+    timeoutMs: 30_000,
+    baseUrl: UPLOAD_API_BASE_URL,
+  });
+
+  const chunkSize = Math.min(start.chunk_size_hint || optimisticChunkSize, optimisticChunkSize);
+  const totalChunks = Math.ceil(file.size / chunkSize);
+
+  if (totalChunks !== Math.ceil(file.size / optimisticChunkSize)) {
+    throw new ApiClientError(
+      "The upload chunk size changed unexpectedly. Please refresh and retry.",
+      { code: "chunk_config_mismatch" },
+    );
+  }
+
+  for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex += 1) {
+    const startByte = chunkIndex * chunkSize;
+    const endByte = Math.min(startByte + chunkSize, file.size);
+    const formData = new FormData();
+    formData.append("chunk_index", String(chunkIndex));
+    formData.append("chunk", file.slice(startByte, endByte), `${file.name}.part-${chunkIndex}`);
+
+    const response = await requestJson<IngestResponse | ChunkedUploadPartialResponse>(
+      `/sessions/${sessionId}/manual-upload/${start.upload_id}/chunk`,
+      {
+        method: "POST",
+        body: formData,
+        timeoutMs: 240_000,
+        baseUrl: UPLOAD_API_BASE_URL,
+      },
+    );
+
+    if ("chunks_indexed" in response) {
+      return response;
+    }
+  }
+
+  throw new ApiClientError("The upload finished without an indexing response. Please retry.", {
+    code: "chunk_upload_incomplete",
   });
 }
 

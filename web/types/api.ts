@@ -15,6 +15,18 @@ export type IngestResponse = {
   warnings: string[];
 };
 
+export type ChunkedUploadStartResponse = {
+  upload_id: string;
+  chunk_size_hint: number;
+};
+
+export type ChunkedUploadPartialResponse = {
+  status: "partial";
+  received_chunks: number;
+  total_chunks: number;
+  missing_chunks?: number[];
+};
+
 export type Citation = {
   document_name: string;
   page_start: number;

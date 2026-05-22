@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from uuid import uuid4
+
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -7,7 +9,16 @@ from pydantic import BaseModel
 from backend.app.config import settings
 from backend.app.errors import AppError, http_error, safe_detail
 from backend.app.evaluation.evaluator import evaluate_retrieval
-from backend.app.models import EvaluationCase, IngestResponse, TroubleshootRequest
+from backend.app.models import (
+    ChunkedUploadStartRequest,
+    ChunkedUploadStartResponse,
+    EvaluationCase,
+    IngestResponse,
+    ManualPage,
+    ManualUploadState,
+    SessionCorpus,
+    TroubleshootRequest,
+)
 from backend.app.reasoning.confidence import confidence_level, score_confidence
 from backend.app.reasoning.image_enrichment import (
     enrich_query_with_observation,
@@ -41,6 +52,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+CHUNK_SIZE_HINT_BYTES = 3 * 1024 * 1024
+MAX_CHUNK_BYTES = 4 * 1024 * 1024
 
 
 @app.get("/health")
@@ -77,37 +91,171 @@ async def upload_manuals(
             )
         try:
             pdf_bytes = await uploaded.read()
-            pages = extract_pdf_pages(uploaded.filename, pdf_bytes)
-        except Exception as exc:
-            raise HTTPException(
-                status_code=422,
-                detail=safe_detail(
-                    f"I could not read {uploaded.filename}. Please upload a valid, uncorrupted PDF manual.",
-                    "pdf_unreadable",
-                ),
-            ) from exc
+            pages, file_warnings = _extract_manual_pages(uploaded.filename, pdf_bytes)
+            warnings.extend(file_warnings)
+            all_pages.extend(pages)
+            document_names.append(uploaded.filename)
+        except HTTPException:
+            raise
 
-        pages_requiring_ocr = select_pages_for_ocr(pages)
-        if pages_requiring_ocr:
-            try:
-                ocr_client = DocumentIntelligenceClient()
-                for page in pages_requiring_ocr:
-                    try:
-                        ocr_text = ocr_client.ocr_pdf_bytes(
-                            extract_single_page_pdf(pdf_bytes, page.page_number)
-                        )
-                        if ocr_text:
-                            page.text = ocr_text
-                    except AppError as exc:
-                        warnings.append(exc.user_message)
-                        break
-            except AppError as exc:
-                warnings.append(exc.user_message)
+    return _rebuild_session_index(
+        session,
+        warnings,
+        pages=all_pages,
+        documents=document_names,
+    )
 
-        all_pages.extend(pages)
-        document_names.append(uploaded.filename)
 
-    chunks = chunk_pages(all_pages)
+@app.post(
+    "/sessions/{session_id}/manual-upload/start",
+    response_model=ChunkedUploadStartResponse,
+)
+def start_manual_upload(
+    session_id: str,
+    request: ChunkedUploadStartRequest,
+) -> ChunkedUploadStartResponse:
+    session = session_store.get(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail=safe_detail("Session not found", "session_not_found"))
+    if not request.filename.lower().endswith(".pdf"):
+        raise HTTPException(
+            status_code=400,
+            detail=safe_detail("Only PDF uploads are supported.", "unsupported_file_type"),
+        )
+
+    upload_id = str(uuid4())
+    session.pending_uploads[upload_id] = ManualUploadState(
+        upload_id=upload_id,
+        filename=request.filename,
+        total_chunks=request.total_chunks,
+        total_size=request.total_size,
+    )
+    session_store.save(session)
+    return ChunkedUploadStartResponse(
+        upload_id=upload_id,
+        chunk_size_hint=CHUNK_SIZE_HINT_BYTES,
+    )
+
+
+@app.post("/sessions/{session_id}/manual-upload/{upload_id}/chunk")
+async def upload_manual_chunk(
+    session_id: str,
+    upload_id: str,
+    chunk_index: int = Form(...),
+    chunk: UploadFile = File(...),
+):
+    session = session_store.get(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail=safe_detail("Session not found", "session_not_found"))
+
+    upload = session.pending_uploads.get(upload_id)
+    if not upload:
+        raise HTTPException(
+            status_code=404,
+            detail=safe_detail("Upload session not found. Please retry the manual upload.", "upload_not_found"),
+        )
+    if chunk_index < 0 or chunk_index >= upload.total_chunks:
+        raise HTTPException(
+            status_code=400,
+            detail=safe_detail("Invalid upload chunk index.", "invalid_chunk_index"),
+        )
+
+    chunk_bytes = await chunk.read()
+    if len(chunk_bytes) > MAX_CHUNK_BYTES:
+        raise HTTPException(
+            status_code=413,
+            detail=safe_detail(
+                "This upload chunk is too large. Please retry with the latest app version.",
+                "chunk_too_large",
+            ),
+        )
+
+    upload.chunks[chunk_index] = chunk_bytes
+    received_chunks = len(upload.chunks)
+
+    if received_chunks < upload.total_chunks:
+        session_store.save(session)
+        return {
+            "status": "partial",
+            "received_chunks": received_chunks,
+            "total_chunks": upload.total_chunks,
+        }
+
+    missing = sorted(set(range(upload.total_chunks)) - set(upload.chunks))
+    if missing:
+        session_store.save(session)
+        return {
+            "status": "partial",
+            "received_chunks": received_chunks,
+            "total_chunks": upload.total_chunks,
+            "missing_chunks": missing,
+        }
+
+    pdf_bytes = b"".join(upload.chunks[index] for index in range(upload.total_chunks))
+    if len(pdf_bytes) != upload.total_size:
+        session.pending_uploads.pop(upload_id, None)
+        session_store.save(session)
+        raise HTTPException(
+            status_code=400,
+            detail=safe_detail(
+                "The uploaded manual chunks did not match the original file size. Please retry the upload.",
+                "chunk_size_mismatch",
+            ),
+        )
+
+    session.pending_uploads.pop(upload_id, None)
+    pages, warnings = _extract_manual_pages(upload.filename, pdf_bytes)
+    return _rebuild_session_index(
+        session,
+        warnings,
+        pages=[*session.pages, *pages],
+        documents=[*session.documents, upload.filename],
+    )
+
+
+def _extract_manual_pages(filename: str, pdf_bytes: bytes) -> tuple[list[ManualPage], list[str]]:
+    warnings: list[str] = []
+    try:
+        pages = extract_pdf_pages(filename, pdf_bytes)
+    except Exception as exc:
+        raise HTTPException(
+            status_code=422,
+            detail=safe_detail(
+                f"I could not read {filename}. Please upload a valid, uncorrupted PDF manual.",
+                "pdf_unreadable",
+            ),
+        ) from exc
+
+    pages_requiring_ocr = select_pages_for_ocr(pages)
+    if pages_requiring_ocr:
+        try:
+            ocr_client = DocumentIntelligenceClient()
+            for page in pages_requiring_ocr:
+                try:
+                    ocr_text = ocr_client.ocr_pdf_bytes(
+                        extract_single_page_pdf(pdf_bytes, page.page_number)
+                    )
+                    if ocr_text:
+                        page.text = ocr_text
+                except AppError as exc:
+                    warnings.append(exc.user_message)
+                    break
+        except AppError as exc:
+            warnings.append(exc.user_message)
+
+    return pages, warnings
+
+
+def _rebuild_session_index(
+    session: SessionCorpus,
+    warnings: list[str],
+    *,
+    pages: list[ManualPage] | None = None,
+    documents: list[str] | None = None,
+) -> IngestResponse:
+    next_pages = pages if pages is not None else session.pages
+    next_documents = documents if documents is not None else session.documents
+    chunks = chunk_pages(next_pages)
     if not chunks:
         raise HTTPException(
             status_code=422,
@@ -128,8 +276,8 @@ async def upload_manuals(
             ),
         ) from exc
 
-    session.documents = document_names
-    session.pages = all_pages
+    session.documents = next_documents
+    session.pages = next_pages
     session.chunks = chunks
     session.lexical_index = index
     session_store.save(session)
