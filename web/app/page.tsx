@@ -148,7 +148,7 @@ export default function Home() {
     setError("");
     setBackendCheck("Running raw backend diagnostics…");
 
-    async function probe(path: string, init?: RequestInit): Promise<string> {
+    async function probe(path: string, init?: RequestInit): Promise<{ line: string; body: string; ok: boolean }> {
       try {
         const response = await fetch(path, {
           cache: "no-store",
@@ -160,23 +160,32 @@ export default function Home() {
         });
         const contentType = response.headers.get("content-type") ?? "unknown";
         const text = await response.text();
-        return `${path} → ${response.status} ${response.statusText}; ${contentType}; ${text.slice(0, 180)}`;
+        return {
+          ok: response.ok,
+          body: text,
+          line: `${path} → ${response.status} ${response.statusText}; ${contentType}; ${text.slice(0, 180)}`,
+        };
       } catch (err) {
         const reason = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
-        return `${path} → browser fetch failed; ${reason}`;
+        return { ok: false, body: "", line: `${path} → browser fetch failed; ${reason}` };
       }
     }
 
-    const healthLine = await probe("/backend/health");
-    const sessionLine = await probe("/backend/sessions", { method: "POST" });
-    setBackendCheck(`${healthLine}
-${sessionLine}`);
+    const health = await probe("/backend/health");
+    const session = await probe("/backend/sessions", { method: "POST" });
+    setBackendCheck(`${health.line}
+${session.line}`);
 
-    try {
-      const session = await createSession();
-      setSessionId(session.session_id);
-    } catch {
-      // The raw diagnostic above contains the actionable failure detail.
+    if (session.ok) {
+      try {
+        const parsed = JSON.parse(session.body) as { session_id?: string };
+        if (parsed.session_id) {
+          setSessionId(parsed.session_id);
+          setError("");
+        }
+      } catch {
+        // Raw diagnostic already shows the unexpected body.
+      }
     }
   }
 
