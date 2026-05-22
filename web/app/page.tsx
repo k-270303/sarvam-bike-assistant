@@ -146,14 +146,37 @@ export default function Home() {
 
   async function handleBackendCheck() {
     setError("");
-    setBackendCheck("Checking backend and session creation…");
+    setBackendCheck("Running raw backend diagnostics…");
+
+    async function probe(path: string, init?: RequestInit): Promise<string> {
+      try {
+        const response = await fetch(path, {
+          cache: "no-store",
+          ...init,
+          headers: {
+            Accept: "application/json,text/plain,*/*",
+            ...(init?.headers ?? {}),
+          },
+        });
+        const contentType = response.headers.get("content-type") ?? "unknown";
+        const text = await response.text();
+        return `${path} → ${response.status} ${response.statusText}; ${contentType}; ${text.slice(0, 180)}`;
+      } catch (err) {
+        const reason = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
+        return `${path} → browser fetch failed; ${reason}`;
+      }
+    }
+
+    const healthLine = await probe("/backend/health");
+    const sessionLine = await probe("/backend/sessions", { method: "POST" });
+    setBackendCheck(`${healthLine}
+${sessionLine}`);
+
     try {
-      const health = await checkBackendConnection();
       const session = await createSession();
       setSessionId(session.session_id);
-      setBackendCheck(`Backend reachable: ${health.status}. Session ready: ${session.session_id.slice(0, 8)}…`);
-    } catch (err) {
-      setBackendCheck(friendlyError(err));
+    } catch {
+      // The raw diagnostic above contains the actionable failure detail.
     }
   }
 
@@ -228,7 +251,9 @@ export default function Home() {
       </section>
 
       {error ? <div className="notice noticeError" style={{ marginBottom: 18 }}>{error}</div> : null}
-      {backendCheck ? <div className="notice noticeInfo" style={{ marginBottom: 18 }}>{backendCheck}</div> : null}
+      {backendCheck ? (
+        <pre className="notice noticeInfo" style={{ marginBottom: 18, whiteSpace: "pre-wrap" }}>{backendCheck}</pre>
+      ) : null}
 
       <section className="grid">
         <aside>
